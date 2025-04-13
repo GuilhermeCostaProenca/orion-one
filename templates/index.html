@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>ORION.ONE</title>
+    <link rel="stylesheet" href="/static/main.css">
+</head>
+<body>
+    <div class="terminal">
+        <h1>ORION.ONE</h1>
+        <form action="/enviar" method="POST">
+            <input type="text" name="mensagem" placeholder="Digite um comando..." autofocus required>
+            <button type="submit">Enviar</button>
+        </form>
+
+        <h2>Memória Recente</h2>
+        <ul>
+            {% if memoria %}
+                {% for item in memoria %}
+                    <li><strong>{{ item[1] }}</strong> → {{ item[0] }}</li>
+                {% endfor %}
+            {% else %}
+                <li>Nenhum comando armazenado ainda.</li>
+            {% endif %}
+        </ul>
+    </div>
+</body>
+</html>
