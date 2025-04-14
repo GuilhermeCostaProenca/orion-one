@@ -1,28 +1,75 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <title>ORION.ONE</title>
-    <link rel="stylesheet" href="/static/main.css">
-</head>
-<body>
-    <div class="terminal">
-        <h1>ORION.ONE</h1>
-        <form action="/enviar" method="POST">
-            <input type="text" name="mensagem" placeholder="Digite um comando..." autofocus required>
-            <button type="submit">Enviar</button>
-        </form>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ORION.ONE</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+      animation: fadeIn 1s ease-in-out;
+    }
 
-        <h2>Memória Recente</h2>
-        <ul>
-            {% if memoria %}
-                {% for item in memoria %}
-                    <li><strong>{{ item[1] }}</strong> → {{ item[0] }}</li>
-                {% endfor %}
-            {% else %}
-                <li>Nenhum comando armazenado ainda.</li>
-            {% endif %}
-        </ul>
-    </div>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .glass {
+      backdrop-filter: blur(12px);
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .neon {
+      text-shadow: 0 0 6px #39ff14, 0 0 20px #39ff14, 0 0 30px #39ff14;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center px-4 text-white font-mono">
+
+  <div class="w-full max-w-3xl glass p-8 rounded-xl shadow-2xl animate-fade-in space-y-8">
+
+    <h1 class="text-5xl font-extrabold text-green-400 neon text-center tracking-wider">ORION.ONE</h1>
+
+    <form action="/enviar" method="POST" class="flex gap-4">
+      <input
+        type="text"
+        name="mensagem"
+        placeholder="Digite um comando para o ORION"
+        required
+        autofocus
+        class="flex-1 px-4 py-3 rounded-lg bg-zinc-800 text-green-300 placeholder-zinc-500 border border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2"
+      />
+      <button
+        type="submit"
+        class="px-6 py-3 bg-green-500 hover:bg-green-400 text-black font-bold rounded-lg transition-all shadow-lg"
+      >
+        Enviar
+      </button>
+    </form>
+
+    <section>
+      <h2 class="text-xl font-bold text-green-300 mb-4">🧠 Memória Recente</h2>
+      <div class="space-y-3">
+        {% if memoria %}
+          {% for item in memoria %}
+            <div class="p-4 rounded-md bg-zinc-800 border border-zinc-700 hover:border-green-400 transition-all">
+              <p class="text-green-400 text-sm">{{ item[1] }}</p>
+              <p class="text-white text-lg">{{ item[0] }}</p>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p class="text-zinc-400 italic">Nenhum comando armazenado ainda.</p>
+        {% endif %}
+      </div>
+    </section>
+
+    <footer class="pt-6 border-t border-zinc-700 text-center text-sm text-zinc-500">
+      Desenvolvido por Guilherme Costa Proença • v0.2-dev
+    </footer>
+  </div>
+
 </body>
 </html>
